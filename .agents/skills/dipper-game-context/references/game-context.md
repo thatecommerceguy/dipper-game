@@ -11,6 +11,16 @@ The user explicitly identified this project as a 2D scroller and supplied the `r
 - Support platform traversal with running or rolling, jumping, landing, turning, and faster dash-like movement.
 - Give movement a physical, playful quality through squash, anticipation, airborne poses, impact, and momentum.
 
+## Confirmed prototype decisions
+
+- Use pure JavaScript with Vite as the development and build setup.
+- Start with character movement only before adding full levels or other gameplay systems.
+- Base the first character on `dipper-expression-movement-sheet-color.png`.
+- Render Dipper as a side-facing SVG character.
+- Use only the round head and round body in the first version, with no feet or other limbs.
+- Keep gameplay state and physics separate from SVG rendering for maintainability.
+- The current keyboard and touch inputs are prototype controls, not the locked final control scheme.
+
 ## Character direction
 
 Dipper has a two-circle body, large expressive eyes, small limbs, and a prominent `D` or Dipper emblem. The reference material explores:
@@ -104,8 +114,8 @@ Confirm these before making consequential design or implementation choices:
 5. Attack input and whether roll or dash is the attack.
 6. Collision penalties, lives, checkpoints, and whether collected gems are lost.
 7. Exact behavior of stars, jelly rolls, flowers, notes, diamonds, and springs.
-8. Final Dipper emblem, proportions, colors, and production sprite style.
-9. Target device, engine, viewport, aspect ratio, and orientation.
+8. Final Dipper emblem, proportions, colors, and production sprite style beyond the approved footless side-view prototype.
+9. Target device, viewport, aspect ratio, and orientation.
 10. Timer behavior and whether 100 seconds is final.
 11. Menus, rewards, leaderboard, accounts, and monetization.
 12. Future-era visual language beyond smooth white forms and clouds.
