@@ -17,6 +17,19 @@ export const PLAYER_PHYSICS = Object.freeze({
   bodyRadius: 72,
 });
 
+export const JETPACK_POWERUP = Object.freeze({
+  duration: 10,
+  pickupX: 1040,
+  pickupY: WORLD.groundY - 92,
+  pickupRadius: 54,
+  activationBoost: 470,
+  liftAcceleration: 1480,
+  flightGravity: 540,
+  maxRiseSpeed: 460,
+  maxFallSpeed: 270,
+  ceilingY: 255,
+});
+
 export function approach(current, target, maxDelta) {
   if (current < target) {
     return Math.min(current + maxDelta, target);

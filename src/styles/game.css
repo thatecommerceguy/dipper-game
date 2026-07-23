@@ -184,6 +184,51 @@ h1 {
   background: rgb(225 238 245 / 72%);
 }
 
+.powerup-chip {
+  min-width: 126px;
+  padding: 8px 13px;
+  border: 1px solid rgb(125 44 255 / 32%);
+  border-radius: 14px;
+  display: none;
+  align-items: center;
+  gap: 9px;
+  background: rgb(244 237 255 / 88%);
+  box-shadow:
+    0 12px 35px rgb(13 54 89 / 9%),
+    0 0 24px rgb(125 44 255 / 13%);
+  backdrop-filter: blur(14px);
+}
+
+.powerup-chip.is-active {
+  display: flex;
+}
+
+.powerup-chip > span:first-child {
+  color: #276a9f;
+  font-size: 1.55rem;
+  line-height: 1;
+  filter: drop-shadow(0 0 5px rgb(103 199 255 / 65%));
+}
+
+.powerup-chip small,
+.powerup-chip strong {
+  display: block;
+}
+
+.powerup-chip small {
+  margin-bottom: 1px;
+  color: #6a41a0;
+  font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.powerup-chip strong {
+  font-size: 0.86rem;
+  font-variant-numeric: tabular-nums;
+}
+
 .stage-frame {
   position: absolute;
   inset: 0;
@@ -350,6 +395,11 @@ kbd {
     padding: 8px 10px;
   }
 
+  .powerup-chip {
+    min-width: 104px;
+    padding: 7px 10px;
+  }
+
   .progress-track {
     display: none;
   }
@@ -389,6 +439,12 @@ kbd {
 
   .audio-toggle span:last-child {
     display: none;
+  }
+
+  .powerup-chip {
+    position: fixed;
+    top: max(78px, calc(env(safe-area-inset-top) + 68px));
+    right: max(12px, env(safe-area-inset-right));
   }
 
   .game-controls {

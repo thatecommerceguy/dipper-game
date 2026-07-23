@@ -1,4 +1,5 @@
 import { Player } from "../entities/Player.js";
+import { JetpackPowerUp } from "../entities/JetpackPowerUp.js";
 import { SvgRenderer } from "../renderers/SvgRenderer.js";
 import { AudioManager } from "./AudioManager.js";
 import { Input } from "./Input.js";
@@ -10,6 +11,7 @@ export class Game {
     this.audio = new AudioManager(mount);
     this.input = new Input(mount);
     this.player = new Player();
+    this.jetpackPowerUp = new JetpackPowerUp();
     this.cameraX = 0;
     this.lastTimestamp = 0;
     this.animationFrame = null;
@@ -17,7 +19,7 @@ export class Game {
   }
 
   start() {
-    this.renderer.render(this.player, this.cameraX, 0);
+    this.renderer.render(this.player, this.jetpackPowerUp, this.cameraX, 0);
     this.animationFrame = requestAnimationFrame(this.tick);
   }
 
@@ -35,8 +37,17 @@ export class Game {
       this.audio.playJump();
     }
 
+    if (this.jetpackPowerUp.tryCollect(this.player)) {
+      this.player.activateJetpack();
+    }
+
     this.updateCamera(deltaTime);
-    this.renderer.render(this.player, this.cameraX, timestamp / 1000);
+    this.renderer.render(
+      this.player,
+      this.jetpackPowerUp,
+      this.cameraX,
+      timestamp / 1000,
+    );
 
     this.animationFrame = requestAnimationFrame(this.tick);
   }

@@ -1,4 +1,5 @@
 import {
+  JETPACK_POWERUP,
   PLAYER_PHYSICS,
   WORLD,
   approach,
@@ -21,10 +22,33 @@ export class Player {
     this.stateTime = 0;
     this.bodyRotation = 0;
     this.landingTime = 0;
+    this.jetpackTimeRemaining = 0;
+  }
+
+  get jetpackActive() {
+    return this.jetpackTimeRemaining > 0;
+  }
+
+  activateJetpack() {
+    this.jetpackTimeRemaining = JETPACK_POWERUP.duration;
+    this.velocity.y = -JETPACK_POWERUP.activationBoost;
+    this.grounded = false;
+    this.landingTime = 0;
+    this.state = "fly";
+    this.stateTime = 0;
   }
 
   update(deltaTime, input) {
     let jumped = false;
+    const jumpPressed = input.consumeJump();
+
+    if (this.jetpackActive) {
+      this.jetpackTimeRemaining = Math.max(
+        0,
+        this.jetpackTimeRemaining - deltaTime,
+      );
+    }
+
     const direction = input.horizontal;
     const acceleration = this.grounded
       ? PLAYER_PHYSICS.groundAcceleration
@@ -45,14 +69,26 @@ export class Player {
       );
     }
 
-    if (input.consumeJump() && this.grounded) {
+    if (this.jetpackActive) {
+      this.grounded = false;
+
+      if (input.held.jump) {
+        this.velocity.y -= JETPACK_POWERUP.liftAcceleration * deltaTime;
+      } else {
+        this.velocity.y += JETPACK_POWERUP.flightGravity * deltaTime;
+      }
+
+      this.velocity.y = clamp(
+        this.velocity.y,
+        -JETPACK_POWERUP.maxRiseSpeed,
+        JETPACK_POWERUP.maxFallSpeed,
+      );
+    } else if (jumpPressed && this.grounded) {
       this.velocity.y = -PLAYER_PHYSICS.jumpVelocity;
       this.grounded = false;
       this.landingTime = 0;
       jumped = true;
-    }
-
-    if (!this.grounded) {
+    } else if (!this.grounded) {
       this.velocity.y += PLAYER_PHYSICS.gravity * deltaTime;
     }
 
@@ -66,6 +102,14 @@ export class Player {
     if (clampedX !== this.position.x) {
       this.velocity.x = 0;
       this.position.x = clampedX;
+    }
+
+    if (
+      this.jetpackActive &&
+      this.position.y < JETPACK_POWERUP.ceilingY
+    ) {
+      this.position.y = JETPACK_POWERUP.ceilingY;
+      this.velocity.y = Math.max(0, this.velocity.y);
     }
 
     if (this.position.y >= WORLD.groundY) {
@@ -82,10 +126,19 @@ export class Player {
       this.landingTime = Math.max(0, this.landingTime - deltaTime);
     }
 
-    this.bodyRotation +=
-      (this.velocity.x / PLAYER_PHYSICS.bodyRadius) *
-      deltaTime *
-      (180 / Math.PI);
+    if (this.jetpackActive) {
+      const uprightRotation = Math.round(this.bodyRotation / 360) * 360;
+      this.bodyRotation = approach(
+        this.bodyRotation,
+        uprightRotation,
+        420 * deltaTime,
+      );
+    } else {
+      this.bodyRotation +=
+        (this.velocity.x / PLAYER_PHYSICS.bodyRadius) *
+        deltaTime *
+        (180 / Math.PI);
+    }
 
     this.updateState(deltaTime);
 
@@ -95,7 +148,9 @@ export class Player {
   updateState(deltaTime) {
     let nextState = "idle";
 
-    if (this.landingTime > 0) {
+    if (this.jetpackActive) {
+      nextState = "fly";
+    } else if (this.landingTime > 0) {
       nextState = "land";
     } else if (!this.grounded) {
       nextState = this.velocity.y < 40 ? "jump" : "fall";

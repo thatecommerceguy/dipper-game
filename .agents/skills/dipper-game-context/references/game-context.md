@@ -83,6 +83,7 @@ These are design directions, not final tuning values.
 
 ## Collectibles and powers
 
+- Jetpack: confirmed as the first power-up. Collecting it immediately gives Dipper 10 seconds of flight, displays the pack on Dipper’s back, and uses snowflakes instead of flame exhaust. The prototype uses the existing jump/up input to control lift while active; final controls remain open.
 - Musical notes: collectible items associated with exclusive or unreleased sounds; disappear when collected.
 - Silver coin: appears connected to a later or final level and a larger collection requirement.
 - Diamond: grants bonus gems.
