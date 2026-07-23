@@ -13,7 +13,6 @@ export class SvgRenderer {
     this.body = mount.querySelector("#dipper-body");
     this.head = mount.querySelector("#dipper-head");
     this.face = mount.querySelector("#dipper-face");
-    this.mouth = mount.querySelector("#dipper-mouth");
     this.shadow = mount.querySelector("#player-shadow");
     this.stateLabel = mount.querySelector("[data-player-state]");
     this.speedLabel = mount.querySelector("[data-player-speed]");
@@ -57,7 +56,6 @@ export class SvgRenderer {
       `translate(${headOffset} -176) rotate(${animation.headTilt.toFixed(2)})`,
     );
     this.face.setAttribute("transform", `scale(${player.facing} 1)`);
-    this.mouth.setAttribute("d", animation.mouth);
 
     this.shadow.setAttribute("cx", player.position.x.toFixed(2));
     this.shadow.setAttribute("rx", (59 * shadowScale).toFixed(2));
@@ -90,7 +88,6 @@ export class SvgRenderer {
       scaleX: 1,
       scaleY: 1,
       headTilt: 0,
-      mouth: "M 20 15 Q 28 18 34 14",
     };
 
     if (player.state === "idle") {
@@ -106,21 +103,18 @@ export class SvgRenderer {
       animation.scaleX = 1 + Math.abs(stride) * 0.025;
       animation.scaleY = 1 - Math.abs(stride) * 0.02;
       animation.headTilt = -player.facing * 5 + stride * 2;
-      animation.mouth = "M 21 15 Q 28 12 35 15";
     }
 
     if (player.state === "jump") {
       animation.scaleX = 0.93;
       animation.scaleY = 1.075;
       animation.headTilt = -player.facing * 7;
-      animation.mouth = "M 24 11 Q 29 7 34 11 Q 29 17 24 11";
     }
 
     if (player.state === "fall") {
       animation.scaleX = 1.035;
       animation.scaleY = 0.965;
       animation.headTilt = player.facing * 4;
-      animation.mouth = "M 22 12 Q 28 17 35 12";
     }
 
     if (player.state === "land") {
@@ -130,7 +124,6 @@ export class SvgRenderer {
       animation.scaleX = 1 + squash * 0.13;
       animation.scaleY = 1 - squash * 0.14;
       animation.headTilt = player.facing * squash * 7;
-      animation.mouth = "M 21 14 Q 28 18 35 14";
     }
 
     return animation;
@@ -260,20 +253,12 @@ export class SvgRenderer {
                     opacity="0.92"
                   />
                   <g id="dipper-face">
-                    <ellipse cx="5" cy="-5" rx="12" ry="17" fill="#ffffff" stroke="#101b2c" stroke-width="4" />
-                    <ellipse cx="19" cy="-4" rx="14" ry="19" fill="#ffffff" stroke="#101b2c" stroke-width="4" />
-                    <ellipse cx="9" cy="-2" rx="5" ry="8" fill="#101b2c" />
-                    <ellipse cx="24" cy="-1" rx="6" ry="9" fill="#101b2c" />
-                    <circle cx="11" cy="-5" r="2" fill="#ffffff" />
-                    <circle cx="26" cy="-5" r="2.4" fill="#ffffff" />
-                    <path
-                      id="dipper-mouth"
-                      d="M 20 15 Q 28 18 34 14"
-                      fill="none"
-                      stroke="#101b2c"
-                      stroke-width="4"
-                      stroke-linecap="round"
-                    />
+                    <ellipse cx="0" cy="-5" rx="10" ry="17" fill="#ffffff" stroke="#101b2c" stroke-width="4" />
+                    <ellipse cx="5" cy="-2" rx="4" ry="8" fill="#101b2c" />
+                    <circle cx="6.5" cy="-5" r="1.8" fill="#ffffff" />
+                    <ellipse cx="21" cy="-4" rx="12" ry="19" fill="#ffffff" stroke="#101b2c" stroke-width="4" />
+                    <ellipse cx="27" cy="-1" rx="5" ry="9" fill="#101b2c" />
+                    <circle cx="29" cy="-5" r="2.2" fill="#ffffff" />
                   </g>
                 </g>
               </g>
