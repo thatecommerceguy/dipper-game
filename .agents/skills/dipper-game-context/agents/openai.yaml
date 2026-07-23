@@ -1,0 +1,4 @@
+interface:
+  display_name: "Dipper Game Context"
+  short_description: "Project context for the Dipper 2D scroller"
+  default_prompt: "Use $dipper-game-context to ground work in the Dipper game design and reference material."
