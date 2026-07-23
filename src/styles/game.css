@@ -80,18 +80,11 @@ button {
 }
 
 .brand-mark {
-  width: 52px;
-  aspect-ratio: 1;
-  display: grid;
-  place-items: center;
-  border: 3px solid #111b2c;
-  border-radius: 16px;
-  color: #fff;
-  background: #7d2cff;
-  box-shadow: 5px 5px 0 #111b2c;
-  font-size: 1.65rem;
-  font-weight: 800;
-  line-height: 1;
+  width: 54px;
+  height: 58px;
+  display: block;
+  object-fit: contain;
+  filter: drop-shadow(3px 4px 0 rgb(17 27 44 / 16%));
 }
 
 .eyebrow {
@@ -311,9 +304,8 @@ kbd {
 
 @media (max-width: 470px) {
   .brand-mark {
-    width: 44px;
-    border-radius: 13px;
-    box-shadow: 4px 4px 0 #111b2c;
+    width: 46px;
+    height: 50px;
   }
 
   .game-header {

@@ -16,6 +16,7 @@ The user explicitly identified this project as a 2D scroller and supplied the `r
 - Use pure JavaScript with Vite as the development and build setup.
 - Start with character movement only before adding full levels or other gameplay systems.
 - Base the first character on `dipper-expression-movement-sheet-color.png`.
+- Use `dipper-logo.PNG` as the official top-left and character-body logo.
 - Render Dipper as a side-facing SVG character.
 - Use only the round head and round body in the first version, with no feet or other limbs.
 - Keep gameplay state and physics separate from SVG rendering for maintainability.
@@ -33,7 +34,7 @@ Dipper has a two-circle body, large expressive eyes, small limbs, and a prominen
 - turning around;
 - surprise, anger, happiness, dizziness, and other expressions.
 
-The present-era treatment is primarily white with blue linework. The past-era treatment is metallic gold on dark backgrounds. Several logo treatments exist, so the final chest emblem is not locked.
+The present-era treatment is primarily white with blue linework. The past-era treatment is metallic gold on dark backgrounds. Use the black, white, and purple artwork in `dipper-logo.PNG` as the selected emblem.
 
 ## World art direction
 
@@ -115,7 +116,7 @@ Confirm these before making consequential design or implementation choices:
 5. Attack input and whether roll or dash is the attack.
 6. Collision penalties, lives, checkpoints, and whether collected gems are lost.
 7. Exact behavior of stars, jelly rolls, flowers, notes, diamonds, and springs.
-8. Final Dipper emblem, proportions, colors, and production sprite style beyond the approved footless side-view prototype.
+8. Final Dipper proportions, colors, and production sprite style beyond the approved footless side-view prototype.
 9. Target device, viewport, aspect ratio, and orientation.
 10. Timer behavior and whether 100 seconds is final.
 11. Menus, rewards, leaderboard, accounts, and monetization.
@@ -129,6 +130,7 @@ Confirm these before making consequential design or implementation choices:
 - `dipper-expression-movement-sheet-color.png`
 - `dipper-expression-movement-sheet-outline.png`
 - `dipper-expression-movement-sheet-simple-logo.png`
+- `dipper-logo.PNG`
 - `dipper-present-animation-sheet-variant-1.png`
 - `dipper-present-animation-sheet-variant-2.png`
 - `dipper-present-animation-poster.png`

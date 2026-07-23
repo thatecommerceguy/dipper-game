@@ -1,4 +1,5 @@
 import { PLAYER_PHYSICS, WORLD, clamp } from "../game/physics.js";
+import dipperLogoUrl from "../../reference/dipper-logo.PNG?url";
 
 const SVG_NS = "http://www.w3.org/2000/svg";
 
@@ -140,7 +141,7 @@ export class SvgRenderer {
       <main class="game-shell">
         <header class="game-header">
           <div class="brand-lockup">
-            <span class="brand-mark" aria-hidden="true">D</span>
+            <img class="brand-mark" src="${dipperLogoUrl}" alt="" aria-hidden="true" />
             <div>
               <p class="eyebrow">Movement prototype 01</p>
               <h1>Dipper</h1>
@@ -237,23 +238,14 @@ export class SvgRenderer {
                     opacity="0.92"
                   />
                   <g id="dipper-logo" transform="translate(0 4)">
-                    <path
-                      d="M -30 -38 H -5 C 23 -38 39 -22 39 0 C 39 23 22 38 -5 38 H -30 Z"
-                      fill="#111827"
+                    <image
+                      href="${dipperLogoUrl}"
+                      x="-43"
+                      y="-46.5"
+                      width="86"
+                      height="93"
+                      preserveAspectRatio="xMidYMid meet"
                     />
-                    <path
-                      d="M -19 -27 H -4 C 13 -27 27 -17 27 0 C 27 17 13 27 -4 27 H -19 Z"
-                      fill="none"
-                      stroke="#ffffff"
-                      stroke-width="6"
-                    />
-                    <path
-                      d="M -7 -15 H -2 C 8 -15 15 -9 15 0 C 15 9 8 15 -2 15 H -7 Z"
-                      fill="none"
-                      stroke="#8b35ff"
-                      stroke-width="6"
-                    />
-                    <circle cx="-6" cy="0" r="5" fill="#caa4ff" />
                   </g>
                 </g>
 
