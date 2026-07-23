@@ -35,10 +35,11 @@ export class Game {
   }
 
   updateCamera(deltaTime) {
+    const viewportWidth = this.renderer.viewportWidth;
     const desiredX = clamp(
-      this.player.position.x - WORLD.viewportWidth * 0.42,
+      this.player.position.x - viewportWidth * 0.42,
       0,
-      WORLD.width - WORLD.viewportWidth,
+      Math.max(0, WORLD.width - viewportWidth),
     );
     const smoothing = 1 - Math.exp(-5.5 * deltaTime);
 

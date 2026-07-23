@@ -13,17 +13,18 @@
 html,
 body,
 #app {
+  width: 100%;
+  height: 100%;
   min-width: 320px;
-  min-height: 100%;
   margin: 0;
+  overflow: hidden;
 }
 
 body {
-  min-height: 100vh;
-  overflow-x: hidden;
-  background:
-    radial-gradient(circle at 18% 0%, rgb(255 255 255 / 85%), transparent 36rem),
-    #dff5ff;
+  height: 100vh;
+  height: 100dvh;
+  overscroll-behavior: none;
+  background: #62c4f0;
 }
 
 button,
@@ -36,27 +37,46 @@ button {
 }
 
 .game-shell {
-  width: min(100%, 1720px);
-  min-height: 100vh;
-  margin: 0 auto;
-  padding: clamp(18px, 3vw, 48px);
-  display: grid;
-  grid-template-rows: auto 1fr auto;
-  gap: clamp(16px, 2vw, 28px);
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
 }
 
 .game-header,
 .game-controls {
+  position: absolute;
+  z-index: 4;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 24px;
+  pointer-events: none;
+}
+
+.game-header {
+  top: max(20px, env(safe-area-inset-top));
+  right: max(24px, env(safe-area-inset-right));
+  left: max(24px, env(safe-area-inset-left));
+}
+
+.game-controls {
+  right: max(24px, env(safe-area-inset-right));
+  bottom: max(24px, env(safe-area-inset-bottom));
+  left: max(24px, env(safe-area-inset-left));
 }
 
 .brand-lockup {
   display: flex;
   align-items: center;
   gap: 15px;
+  padding: 10px 14px 10px 10px;
+  border: 1px solid rgb(17 27 44 / 10%);
+  border-radius: 19px;
+  background: rgb(245 252 255 / 66%);
+  box-shadow: 0 12px 35px rgb(13 54 89 / 10%);
+  backdrop-filter: blur(14px);
 }
 
 .brand-mark {
@@ -101,8 +121,9 @@ h1 {
   padding: 10px 15px;
   border: 1px solid rgb(17 27 44 / 14%);
   border-radius: 14px;
-  background: rgb(255 255 255 / 58%);
-  backdrop-filter: blur(12px);
+  background: rgb(245 252 255 / 72%);
+  box-shadow: 0 12px 35px rgb(13 54 89 / 9%);
+  backdrop-filter: blur(14px);
 }
 
 .status-cluster small,
@@ -129,17 +150,12 @@ h1 {
 }
 
 .stage-frame {
-  position: relative;
-  align-self: center;
+  position: absolute;
+  inset: 0;
   width: 100%;
-  aspect-ratio: 16 / 9;
+  height: 100%;
   overflow: hidden;
-  border: clamp(5px, 0.6vw, 9px) solid #111b2c;
-  border-radius: clamp(20px, 3vw, 42px);
   background: #81cff1;
-  box-shadow:
-    0 24px 70px rgb(20 74 117 / 18%),
-    0 8px 0 #4e95c6;
   isolation: isolate;
 }
 
@@ -148,19 +164,19 @@ h1 {
   height: 100%;
   display: block;
   user-select: none;
+  touch-action: none;
 }
 
 .stage-vignette {
   position: absolute;
   inset: 0;
   pointer-events: none;
-  border-radius: inherit;
   box-shadow: inset 0 0 80px rgb(13 54 89 / 12%);
 }
 
 .progress-track {
   position: absolute;
-  top: 17px;
+  top: max(30px, env(safe-area-inset-top));
   left: 50%;
   width: min(46%, 620px);
   height: 5px;
@@ -186,6 +202,15 @@ h1 {
   font-size: clamp(0.72rem, 1.4vw, 0.92rem);
 }
 
+.control-copy {
+  padding: 10px 14px;
+  border: 1px solid rgb(17 27 44 / 10%);
+  border-radius: 14px;
+  background: rgb(245 252 255 / 68%);
+  box-shadow: 0 12px 35px rgb(13 54 89 / 9%);
+  backdrop-filter: blur(14px);
+}
+
 kbd {
   min-width: 26px;
   margin-right: 4px;
@@ -204,6 +229,7 @@ kbd {
 .touch-controls {
   display: flex;
   gap: 9px;
+  pointer-events: auto;
 }
 
 .touch-controls button {
@@ -241,13 +267,23 @@ kbd {
 }
 
 @media (max-width: 720px) {
-  .game-shell {
-    padding: 16px;
-    gap: 14px;
+  .game-header {
+    top: max(12px, env(safe-area-inset-top));
+    right: max(12px, env(safe-area-inset-right));
+    left: max(12px, env(safe-area-inset-left));
+    align-items: flex-start;
   }
 
-  .game-header {
-    align-items: flex-start;
+  .game-controls {
+    right: max(14px, env(safe-area-inset-right));
+    bottom: max(14px, env(safe-area-inset-bottom));
+    left: max(14px, env(safe-area-inset-left));
+    align-items: flex-end;
+  }
+
+  .brand-lockup {
+    padding: 7px 10px 7px 7px;
+    border-radius: 16px;
   }
 
   .status-cluster > span {
@@ -259,16 +295,8 @@ kbd {
     display: none;
   }
 
-  .stage-frame {
-    border-width: 4px;
-    border-radius: 22px;
-    box-shadow:
-      0 18px 44px rgb(20 74 117 / 16%),
-      0 5px 0 #4e95c6;
-  }
-
-  .game-controls {
-    align-items: flex-end;
+  .progress-track {
+    display: none;
   }
 
   .control-copy > p:last-child {

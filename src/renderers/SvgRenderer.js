@@ -17,12 +17,18 @@ export class SvgRenderer {
     this.stateLabel = mount.querySelector("[data-player-state]");
     this.speedLabel = mount.querySelector("[data-player-speed]");
     this.progress = mount.querySelector("[data-progress]");
+    this.viewportWidth = WORLD.viewportWidth;
+
+    this.updateViewport = this.updateViewport.bind(this);
+    this.resizeObserver = new ResizeObserver(this.updateViewport);
+    this.resizeObserver.observe(this.stage);
+    this.updateViewport();
   }
 
   render(player, cameraX, time) {
     this.stage.setAttribute(
       "viewBox",
-      `${cameraX.toFixed(2)} 0 ${WORLD.viewportWidth} ${WORLD.viewportHeight}`,
+      `${cameraX.toFixed(2)} 0 ${this.viewportWidth.toFixed(2)} ${WORLD.viewportHeight}`,
     );
 
     const animation = this.getAnimation(player, time);
@@ -61,6 +67,19 @@ export class SvgRenderer {
     this.progress.style.setProperty(
       "--progress",
       `${(player.position.x / WORLD.width) * 100}%`,
+    );
+  }
+
+  updateViewport() {
+    const { width, height } = this.stage.getBoundingClientRect();
+
+    if (width <= 0 || height <= 0) {
+      return;
+    }
+
+    this.viewportWidth = Math.min(
+      WORLD.width,
+      WORLD.viewportHeight * (width / height),
     );
   }
 
