@@ -18,6 +18,10 @@ body,
   min-width: 320px;
   margin: 0;
   overflow: hidden;
+  touch-action: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 
 body {
@@ -34,6 +38,9 @@ kbd {
 
 button {
   -webkit-tap-highlight-color: transparent;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 
 .game-shell {
@@ -373,7 +380,8 @@ kbd {
     right: max(14px, env(safe-area-inset-right));
     bottom: max(14px, env(safe-area-inset-bottom));
     left: max(14px, env(safe-area-inset-left));
-    align-items: flex-end;
+    align-items: center;
+    justify-content: center;
   }
 
   .brand-lockup {
@@ -404,13 +412,18 @@ kbd {
     display: none;
   }
 
-  .control-copy > p:last-child {
-    max-width: 180px;
+  .control-copy {
+    display: none;
+  }
+
+  .touch-controls {
+    gap: 12px;
   }
 
   .touch-controls button {
-    width: 46px;
-    border-radius: 14px;
+    width: 60px;
+    border-radius: 18px;
+    font-size: 1.65rem;
   }
 }
 
@@ -448,16 +461,12 @@ kbd {
   }
 
   .game-controls {
-    justify-content: flex-end;
+    justify-content: center;
     gap: 10px;
   }
 
-  .control-copy {
-    display: none;
-  }
-
   .touch-controls {
-    margin-left: 0;
+    margin-inline: auto;
   }
 }
 

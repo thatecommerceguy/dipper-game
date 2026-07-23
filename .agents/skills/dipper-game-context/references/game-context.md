@@ -22,6 +22,7 @@ The user explicitly identified this project as a 2D scroller and supplied the `r
 - Use the authorized local copy of the selected “Cloud Animation” video as the full-screen looping background instead of drawn SVG clouds.
 - Keep gameplay state and physics separate from SVG rendering for maintainability.
 - Present the game as a full-screen experience with an aspect-responsive SVG camera.
+- On mobile, use larger centered touch controls and suppress browser zoom, text selection, and long-press copy callouts inside the game.
 - The current keyboard and touch inputs are prototype controls, not the locked final control scheme.
 
 ## Character direction
