@@ -1,6 +1,8 @@
+const PUBLIC_BASE_URL = import.meta.env.BASE_URL;
+
 const AUDIO_PATHS = Object.freeze({
-  background: "/audio/background-loop.wav",
-  jump: "/audio/jump.wav",
+  background: `${PUBLIC_BASE_URL}audio/background-loop.wav`,
+  jump: `${PUBLIC_BASE_URL}audio/jump.wav`,
 });
 
 export class AudioManager {

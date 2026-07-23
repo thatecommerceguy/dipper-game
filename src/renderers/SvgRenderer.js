@@ -2,6 +2,7 @@ import { PLAYER_PHYSICS, WORLD, clamp } from "../game/physics.js";
 import dipperLogoUrl from "../../reference/dipper-logo.PNG?url";
 
 const SVG_NS = "http://www.w3.org/2000/svg";
+const PUBLIC_BASE_URL = import.meta.env.BASE_URL;
 
 export class SvgRenderer {
   constructor(mount) {
@@ -224,7 +225,7 @@ export class SvgRenderer {
         <section class="stage-frame" aria-label="Dipper movement prototype">
           <video
             class="cloud-background"
-            src="/video/clouds.mp4"
+            src="${PUBLIC_BASE_URL}video/clouds.mp4"
             autoplay
             muted
             loop
