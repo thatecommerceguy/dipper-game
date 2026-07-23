@@ -140,13 +140,35 @@ export class SvgRenderer {
               <h1>Dipper</h1>
             </div>
           </div>
-          <div class="status-cluster" aria-live="polite">
-            <span><small>State</small><strong data-player-state>idle</strong></span>
-            <span><small>Speed</small><strong><b data-player-speed>0</b> px/s</strong></span>
+          <div class="header-actions">
+            <div class="status-cluster" aria-live="polite">
+              <span><small>State</small><strong data-player-state>idle</strong></span>
+              <span><small>Speed</small><strong><b data-player-speed>0</b> px/s</strong></span>
+            </div>
+            <button
+              class="audio-toggle"
+              type="button"
+              data-audio-toggle
+              aria-label="Mute sound"
+              aria-pressed="false"
+            >
+              <span aria-hidden="true">♪</span>
+              <span data-audio-label>Sound on</span>
+            </button>
           </div>
         </header>
 
         <section class="stage-frame" aria-label="Dipper movement prototype">
+          <video
+            class="cloud-background"
+            src="/video/clouds.mp4"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+            aria-hidden="true"
+          ></video>
           <svg
             id="game-stage"
             class="game-stage"
@@ -156,11 +178,6 @@ export class SvgRenderer {
             aria-label="A footless two-ball character moving across a side-scrolling test runway."
           >
             <defs>
-              <linearGradient id="sky-gradient" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="0%" stop-color="#62c4f0" />
-                <stop offset="62%" stop-color="#bceafa" />
-                <stop offset="100%" stop-color="#eefbff" />
-              </linearGradient>
               <radialGradient id="body-gradient" cx="32%" cy="23%" r="78%">
                 <stop offset="0%" stop-color="#ffffff" />
                 <stop offset="72%" stop-color="#f7fbff" />
@@ -175,13 +192,8 @@ export class SvgRenderer {
                   flood-opacity="0.2"
                 />
               </filter>
-              <filter id="cloud-softness" x="-10%" y="-20%" width="120%" height="150%">
-                <feGaussianBlur stdDeviation="1.2" />
-              </filter>
             </defs>
 
-            <rect width="${WORLD.width}" height="${WORLD.height}" fill="url(#sky-gradient)" />
-            ${this.createClouds()}
             ${this.createDistanceMarkers()}
 
             <g id="runway">
@@ -284,34 +296,6 @@ export class SvgRenderer {
         </footer>
       </main>
     `;
-  }
-
-  createClouds() {
-    const clouds = [
-      [160, 180, 1.15, 0.82],
-      [720, 130, 0.72, 0.62],
-      [1190, 240, 1.3, 0.72],
-      [1690, 145, 0.96, 0.76],
-      [2240, 235, 1.18, 0.67],
-      [2860, 120, 0.84, 0.73],
-    ];
-
-    return clouds
-      .map(
-        ([x, y, scale, opacity]) => `
-          <g
-            transform="translate(${x} ${y}) scale(${scale})"
-            fill="#ffffff"
-            opacity="${opacity}"
-            filter="url(#cloud-softness)"
-          >
-            <ellipse cx="-58" cy="8" rx="68" ry="35" />
-            <ellipse cx="-10" cy="-18" rx="62" ry="55" />
-            <ellipse cx="49" cy="3" rx="77" ry="42" />
-          </g>
-        `,
-      )
-      .join("");
   }
 
   createDistanceMarkers() {

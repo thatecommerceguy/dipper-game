@@ -1,11 +1,13 @@
 import { Player } from "../entities/Player.js";
 import { SvgRenderer } from "../renderers/SvgRenderer.js";
+import { AudioManager } from "./AudioManager.js";
 import { Input } from "./Input.js";
 import { WORLD, clamp } from "./physics.js";
 
 export class Game {
   constructor(mount) {
     this.renderer = new SvgRenderer(mount);
+    this.audio = new AudioManager(mount);
     this.input = new Input(mount);
     this.player = new Player();
     this.cameraX = 0;
@@ -27,7 +29,12 @@ export class Game {
     const deltaTime = Math.min((timestamp - this.lastTimestamp) / 1000, 1 / 30);
     this.lastTimestamp = timestamp;
 
-    this.player.update(deltaTime, this.input);
+    const events = this.player.update(deltaTime, this.input);
+
+    if (events.jumped) {
+      this.audio.playJump();
+    }
+
     this.updateCamera(deltaTime);
     this.renderer.render(this.player, this.cameraX, timestamp / 1000);
 

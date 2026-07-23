@@ -24,6 +24,7 @@ export class Player {
   }
 
   update(deltaTime, input) {
+    let jumped = false;
     const direction = input.horizontal;
     const acceleration = this.grounded
       ? PLAYER_PHYSICS.groundAcceleration
@@ -48,6 +49,7 @@ export class Player {
       this.velocity.y = -PLAYER_PHYSICS.jumpVelocity;
       this.grounded = false;
       this.landingTime = 0;
+      jumped = true;
     }
 
     if (!this.grounded) {
@@ -86,6 +88,8 @@ export class Player {
       (180 / Math.PI);
 
     this.updateState(deltaTime);
+
+    return { jumped };
   }
 
   updateState(deltaTime) {

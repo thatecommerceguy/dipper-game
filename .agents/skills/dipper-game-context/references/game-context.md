@@ -19,6 +19,7 @@ The user explicitly identified this project as a 2D scroller and supplied the `r
 - Use `dipper-logo.PNG` as the official top-left and character-body logo.
 - Render Dipper as a side-facing SVG character.
 - Use only the round head and round body in the first version, with no feet or other limbs.
+- Use the authorized local copy of the selected “Cloud Animation” video as the full-screen looping background instead of drawn SVG clouds.
 - Keep gameplay state and physics separate from SVG rendering for maintainability.
 - Present the game as a full-screen experience with an aspect-responsive SVG camera.
 - The current keyboard and touch inputs are prototype controls, not the locked final control scheme.
